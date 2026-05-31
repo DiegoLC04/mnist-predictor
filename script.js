@@ -21,51 +21,31 @@ canvas.addEventListener("mouseup", () => {
 canvas.addEventListener("mousemove", draw);
 
 function draw(e){
-
     if(!drawing) return;
-
     const rect = canvas.getBoundingClientRect();
-
-    ctx.lineTo(
-        e.clientX - rect.left,
-        e.clientY - rect.top
-    );
-
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
     ctx.stroke();
     ctx.beginPath();
-
-    ctx.moveTo(
-        e.clientX - rect.left,
-        e.clientY - rect.top
-    );
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
 }
 
-document
-.getElementById("clearBtn")
-.addEventListener("click",()=>{
-
+document.getElementById("clearBtn").addEventListener("click",()=>{
     ctx.fillStyle="black";
     ctx.fillRect(0,0,280,280);
-
-    document.getElementById("resultado").innerHTML =
-        "Dibuja un número";
-
+    document.getElementById("resultado").innerHTML = "Dibuja un número";
     document.getElementById("barras").innerHTML="";
 });
 
-document
-.getElementById("predictBtn")
-.addEventListener("click", ()=>{
+document.getElementById("predictBtn").addEventListener("click", ()=>{
 
     canvas.toBlob(async(blob)=>{
 
         try {
-
             const formData = new FormData();
             formData.append("file", blob, "numero.png");
 
-            const response = await fetch("https://mnist-api-44242690142.us-central1.run.app/predict", ...
-  
+            const response = await fetch(
+                "https://mnist-api-44242690142.us-central1.run.app/predict",
                 {
                     method: "POST",
                     body: formData
@@ -80,7 +60,7 @@ document
             let html = "";
 
             for(let i = 0; i < 10; i++){
-                const valor = data.probabilidades[i];
+                const valor = data.probabilidades[String(i)];
                 html += `
                 <div class="barra">
                     <span>${i}</span>
