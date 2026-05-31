@@ -53,6 +53,7 @@ document.getElementById("predictBtn").addEventListener("click", ()=>{
             );
 
             const data = await response.json();
+              console.log("Respuesta:", JSON.stringify(data));       
 
             document.getElementById("resultado").innerHTML =
                 `Predicción: ${data.clase}<br>Confianza: ${data.probabilidad}%`;
