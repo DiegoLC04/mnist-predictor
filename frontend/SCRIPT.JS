@@ -64,8 +64,8 @@ document
             const formData = new FormData();
             formData.append("file", blob, "numero.png");
 
-            const response = await fetch(
-             "http://localhost:8000/predict",  
+            const response = await fetch("https://mnist-api-44242690142.us-central1.run.app/predict", ...
+  
                 {
                     method: "POST",
                     body: formData
